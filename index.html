@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>El Juego de la Vida</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <main>
+      <h1>El Juego de la Vida</h1>
+
+      <details class="accordion">
+        <summary>📖 Historia del juego</summary>
+        <div class="accordion-content history-content">
+          <p>
+            El <strong>Juego de la vida</strong> es un autómata celular diseñado
+            por el matemático británico John Horton Conway en 1970. Es un juego
+            de cero jugadores, en el que su evolución es determinada por un
+            estado inicial, sin requerir intervención adicional. Se considera un
+            sistema Turing completo que puede simular cualquier otra Máquina de
+            Turing.
+          </p>
+
+          <p>
+            Desde su publicación, ha atraído mucho interés debido a la gran
+            variabilidad de la evolución de los patrones. Se considera que el
+            Juego de la vida es un buen ejemplo de emergencia y
+            autoorganización. Es interesante para científicos, matemáticos,
+            economistas y otros observar cómo patrones complejos pueden provenir
+            de la implementación de reglas muy sencillas.
+          </p>
+
+          <p>
+            El Juego de la vida tiene una variedad de patrones reconocidos que
+            provienen de determinadas posiciones iniciales. Poco después de la
+            publicación, se descubrieron el pentaminó R, el planeador o
+            caminador (en inglés: <em>glider</em>, conjunto de células que se
+            desplazan) y el explosionador (células que parecen formar la onda
+            expansiva de una explosión), lo que atrajo un mayor interés hacia el
+            juego. Contribuyó a su popularidad el hecho de que se publicó justo
+            cuando se estaba lanzando al mercado una nueva generación de
+            miniordenadores baratos, lo que significaba que se podía jugar
+            durante horas en máquinas que, por otro lado, no se utilizarían por
+            la noche.
+          </p>
+
+          <p>
+            Para muchos aficionados, el juego de la vida solo era un desafío de
+            programación y una manera divertida de usar ciclos de la CPU. Para
+            otros, sin embargo, el juego adquirió más connotaciones filosóficas.
+          </p>
+        </div>
+      </details>
+
+      <details class="accordion">
+        <summary>📜 Reglas del juego</summary>
+        <div class="accordion-content">
+          <p class="intro">
+            El Juego de la Vida es un autómata celular basado en la evolución de
+            células según sus vecinas.
+          </p>
+
+          <section class="rules" aria-label="Reglas principales">
+            <article class="rule">
+              <h2>🟢 Nace</h2>
+              <p>
+                Si una célula muerta tiene exactamente 3 células vecinas vivas,
+                nace. Es decir, al turno siguiente estará viva.
+              </p>
+            </article>
+
+            <article class="rule">
+              <h2>🔴 Muere</h2>
+              <p>Una célula viva puede morir por uno de estos dos casos:</p>
+              <ul>
+                <li>
+                  <strong>Sobrepoblación:</strong> si tiene más de tres vecinos
+                  alrededor.
+                </li>
+                <li>
+                  <strong>Aislamiento:</strong> si tiene solo un vecino
+                  alrededor o ninguno.
+                </li>
+              </ul>
+            </article>
+
+            <article class="rule">
+              <h2>🔵 Vive</h2>
+              <p>
+                Una célula se mantiene viva si tiene 2 o 3 vecinos a su
+                alrededor.
+              </p>
+            </article>
+          </section>
+        </div>
+      </details>
+
+      <details class="accordion">
+        <summary>📊 Resumen de reglas</summary>
+        <div class="accordion-content table-wrapper">
+          <table>
+            <caption>
+              Resumen de reglas
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Estado actual</th>
+                <th scope="col">Vecinas vivas</th>
+                <th scope="col">Resultado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Muerta</td>
+                <td>3</td>
+                <td>Nace</td>
+              </tr>
+              <tr>
+                <td>Viva</td>
+                <td>Menos de 2</td>
+                <td>Muere por aislamiento</td>
+              </tr>
+              <tr>
+                <td>Viva</td>
+                <td>2 o 3</td>
+                <td>Sobrevive</td>
+              </tr>
+              <tr>
+                <td>Viva</td>
+                <td>Más de 3</td>
+                <td>Muere por sobrepoblación</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </details>
+
+      <form action="submit">
+        <label for="filas">Número de filas</label>
+        <input
+          type="number"
+          name="filas"
+          id="filas"
+          value="10"
+          min="1"
+          max="99"
+          maxlength="2"
+          size="2"
+        /><br />
+        <label for="columnas">Número de columnas</label>
+        <input
+          type="number"
+          name="columnas"
+          id="columnas"
+          value="10"
+          min="1"
+          max="99"
+          maxlength="2"
+          size="2"
+        /><br />
+        <button id="btn-generar-tablero">Generar tablero</button>
+      </form>
+      
+      <div id="tablero"></div>
+      <button id="start">Comenzar Juego</button>
+      <button id="stop">Parar Juego</button>
+      <button id="clean">Limpiar tablero</button>
+
+    </main>
+
+    <script type="module" src="./js/ui.js"></script>
+    <script type="module" src="./js/scriptJuego.js"></script>
+  </body>
+</html>
