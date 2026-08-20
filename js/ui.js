@@ -65,7 +65,8 @@ btnGenerarTablero.addEventListener("click", (event) => {
   const columnas = document.getElementById("columnas").value;
   matriz = generarTablero(filas, columnas);
   // ajustar grid del tablero
-  const tamanoCelda = "10px";
+  const mayorDimension = Math.max(Number(filas), Number(columnas));
+  const tamanoCelda = mayorDimension <= 20 ? "28px" : mayorDimension <= 35 ? "20px" : "10px";
   tablero.style.gridTemplateRows = `repeat(${filas}, ${tamanoCelda})`;
   tablero.style.gridTemplateColumns = `repeat(${columnas}, ${tamanoCelda})`;
   // limpiar tablero

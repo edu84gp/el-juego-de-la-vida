@@ -32,7 +32,7 @@ export function comenzarJuego(matriz) {
     for (let numCol = 0; numCol < matriz[numFila].length; numCol++) {
       const celda = matriz[numFila][numCol];
       const vecinas = celulasVecinas(matriz, numFila, numCol);
-      if (!celda && vecinas == 3 || (vecinas === 2 || vecinas === 3)) {
+      if ((!celda && vecinas === 3) || (celda && (vecinas === 2 || vecinas === 3))) {
         matrizSiguiente[numFila][numCol] = 1;
       } else {
         matrizSiguiente[numFila][numCol] = 0;
