@@ -56,13 +56,23 @@ const tablero = document.getElementById("tablero");
 const start = document.getElementById("start");
 const stop = document.getElementById("stop");
 const clean = document.getElementById("clean");
+const velocidad = document.getElementById("velocidad");
 let matriz;
 let intervalo;
 
+function obtenerVelocidad() {
+  const valor = Number(velocidad.value);
+  return Math.min(Math.max(valor, Number(velocidad.min)), Number(velocidad.max));
+}
+
+function iniciarIntervalo() {
+  intervalo = setInterval(siguienteGeneracion, obtenerVelocidad());
+}
+
 btnGenerarTablero.addEventListener("click", (event) => {
   event.preventDefault();
-  const filas = document.getElementById("filas").value;
-  const columnas = document.getElementById("columnas").value;
+  const filas = Number(document.getElementById("filas").value);
+  const columnas = Number(document.getElementById("columnas").value);
   matriz = generarTablero(filas, columnas);
   // ajustar grid del tablero
   const mayorDimension = Math.max(Number(filas), Number(columnas));
@@ -73,7 +83,11 @@ btnGenerarTablero.addEventListener("click", (event) => {
   tablero.innerHTML = "";
   for (let fila = 0; fila < filas; fila++) {
     for (let columna = 0; columna < columnas; columna++) {
-      tablero.innerHTML += `<div class="celula muerta" data-fila="${fila}" data-columna="${columna}"></div>`;
+      let element = document.createElement("div");
+      element.dataset.fila = `${fila}`;
+      element.dataset.columna = `${columna}`;
+      element.classList = "celula muerta";
+      tablero.appendChild(element)
     }
   }
 });
@@ -111,7 +125,7 @@ function siguienteGeneracion() {
 start.addEventListener("click", () => {
   if (!matriz || intervalo) return;
   siguienteGeneracion();
-  intervalo = setInterval(siguienteGeneracion, 500);
+  iniciarIntervalo();
 });
 
 stop.addEventListener("click", () => {
@@ -119,20 +133,24 @@ stop.addEventListener("click", () => {
   intervalo = null;
 });
 
+velocidad.addEventListener("change", () => {
+  const valor = obtenerVelocidad();
+  velocidad.value = valor;
+
+  if (intervalo) {
+    clearInterval(intervalo);
+    iniciarIntervalo();
+  }
+});
+
 clean.addEventListener("click", () => {
   if (intervalo) {
     clearInterval(intervalo);
     intervalo = null;
   }
-  const celulas = document.querySelectorAll(".celula");
-  celulas.forEach((celula) => {
-    const fila = Number(celula.dataset.fila);
-    const columna = Number(celula.dataset.columna);
-    let estaViva = matriz[fila][columna] == 1;
-    if (estaViva) {
-      matriz[fila][columna] = 0;
-      celula.classList.replace("viva", "muerta");
-    }
-    renderizarTablero();
-  });
+    const filas = matriz.length;
+    const columnas = matriz[0].length;
+    matriz = generarTablero(filas, columnas);
+
+  renderizarTablero();
 });
