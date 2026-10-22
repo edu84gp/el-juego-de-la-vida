@@ -17,9 +17,11 @@
             El <strong>Juego de la vida</strong> es un autómata celular diseñado
             por el matemático británico John Horton Conway en 1970. Es un juego
             de cero jugadores, en el que su evolución es determinada por un
-            estado inicial, sin requerir intervención adicional. Se considera un
-            sistema Turing completo que puede simular cualquier otra Máquina de
-            Turing.
+            estado inicial, sin requerir intervención adicional. El autómata
+            original es Turing-completo sobre un tablero infinito, lo que le
+            permite simular cualquier máquina de Turing. Esta implementación usa
+            un tablero finito y no envolvente, por lo que no conserva esa
+            propiedad.
           </p>
 
           <p>
@@ -136,7 +138,7 @@
         </div>
       </details>
 
-      <form action="submit">
+      <form id="configuracion">
         <label for="filas">Número de filas</label>
         <input
           type="number"
@@ -169,14 +171,25 @@
           max="2000"
           step="10"
         />
-        <button id="btn-generar-tablero">Generar tablero</button>
+        <button id="btn-generar-tablero" type="submit">Generar tablero</button>
       </form>
 
-      <div id="tablero"></div>
+      <p id="instrucciones-tablero" class="sr-only">
+        Usa las flechas para moverte por las células. Pulsa Enter o Espacio para
+        activar o desactivar una célula.
+      </p>
+      <div
+        id="tablero"
+        role="grid"
+        aria-label="Tablero del Juego de la Vida"
+        aria-describedby="instrucciones-tablero"
+        aria-rowcount="30"
+        aria-colcount="30"
+      ></div>
       <div id="buttons">
-        <button id="start">Comenzar Juego</button>
-        <button id="stop">Parar Juego</button>
-        <button id="clean">Limpiar tablero</button>
+        <button id="start" type="button">Comenzar Juego</button>
+        <button id="stop" type="button">Parar Juego</button>
+        <button id="clean" type="button">Limpiar tablero</button>
       </div>
     </main>
 
