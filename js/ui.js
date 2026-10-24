@@ -1,4 +1,8 @@
-import { generarTablero, comenzarJuego } from "./scriptJuego.js";
+import {
+  generarTablero,
+  generarPatronAleatorio,
+  comenzarJuego,
+} from "./scriptJuego.js";
 
 const accordions = document.querySelectorAll(".accordion");
 
@@ -57,6 +61,7 @@ const start = document.getElementById("start");
 const stop = document.getElementById("stop");
 const clean = document.getElementById("clean");
 const velocidad = document.getElementById("velocidad");
+const botonPatronAleatorio = document.getElementById("btn-patron-aleatorio");
 let matriz = null;
 let intervalo = null;
 let celdaEnfocada = null;
@@ -287,6 +292,15 @@ clean.addEventListener("click", () => {
   detenerSimulacion();
   matriz = generarTablero(matriz.length, matriz[0].length);
   renderizarTablero();
+});
+
+botonPatronAleatorio.addEventListener("click", () => {
+  if (!matriz) return;
+
+  detenerSimulacion();
+  matriz = generarPatronAleatorio(matriz, 0.3);
+  renderizarTablero();
+  enfocarCelda(tablero.querySelector(".celula"));
 });
 
 crearTablero();

@@ -9,6 +9,12 @@ export function generarTablero(filas, columnas) {
   return matriz;
 }
 
+export function generarPatronAleatorio(matriz, densidad = 0.3) {
+  return matriz.map((fila) =>
+    fila.map(() => (Math.random() < densidad ? 1 : 0)),
+  );
+}
+
 function celulasVecinas(matriz, fila, columna) {
   let contador = 0;
 
