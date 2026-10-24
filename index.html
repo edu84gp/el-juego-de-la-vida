@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>El Juego de la Vida</title>
+    <link rel="icon" href="data:," />
     <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body>
@@ -138,7 +139,7 @@
         </div>
       </details>
 
-      <form id="configuracion">
+      <form id="configuracion" aria-label="Configuración del tablero">
         <label for="filas">Número de filas</label>
         <input
           type="number"
@@ -147,8 +148,7 @@
           value="30"
           min="1"
           max="99"
-          maxlength="2"
-          size="2"
+          inputmode="numeric"
         /><br />
         <label for="columnas">Número de columnas</label>
         <input
@@ -158,8 +158,7 @@
           value="30"
           min="1"
           max="99"
-          maxlength="2"
-          size="2"
+          inputmode="numeric"
         /><br />
         <label for="velocidad">Velocidad (milisegundos)</label>
         <input
@@ -169,6 +168,7 @@
           value="300"
           min="10"
           max="2000"
+          inputmode="numeric"
           step="10"
         />
         <button id="btn-generar-tablero" type="button">Generar tablero</button>
@@ -178,9 +178,16 @@
       </form>
 
       <p id="instrucciones-tablero" class="sr-only">
-        Usa las flechas para moverte por las células. Pulsa Enter o Espacio para
-        activar o desactivar una célula.
+        Usa las flechas para moverte por las células. Pulsa Inicio o Fin para ir
+        al principio o al final de la fila. Pulsa Enter o Espacio para activar o
+        desactivar una célula.
       </p>
+      <p
+        id="estado-tablero"
+        class="sr-only"
+        role="status"
+        aria-live="polite"
+      ></p>
       <div
         id="tablero"
         role="grid"
@@ -188,6 +195,7 @@
         aria-describedby="instrucciones-tablero"
         aria-rowcount="30"
         aria-colcount="30"
+        aria-multiselectable="true"
       ></div>
       <div id="buttons">
         <button id="start" type="button">Comenzar Juego</button>

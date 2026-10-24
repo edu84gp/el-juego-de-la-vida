@@ -229,6 +229,11 @@ button:hover {
   transform: translateY(-1px);
 }
 
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
 button:focus-visible {
   outline: 2px solid var(--accent-dark);
   outline-offset: 3px;
@@ -314,13 +319,23 @@ button:focus-visible {
 }
 
 .muerta {
-  background-color: #30463f;
+  background-color: #46645a;
 }
 
 .viva {
   background-color: #83d6a8;
   border-color: #b9f0cd;
   box-shadow: 0 0 5px rgba(131, 214, 168, 0.8);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .celula {
+    transition: none;
+  }
+
+  .celula:hover {
+    transform: none;
+  }
 }
 
 @media (max-width: 520px) {

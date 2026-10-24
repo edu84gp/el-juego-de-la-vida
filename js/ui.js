@@ -57,6 +57,7 @@ const formulario = document.getElementById("configuracion");
 const filasInput = document.getElementById("filas");
 const columnasInput = document.getElementById("columnas");
 const tablero = document.getElementById("tablero");
+const estadoTablero = document.getElementById("estado-tablero");
 const start = document.getElementById("start");
 const stop = document.getElementById("stop");
 const clean = document.getElementById("clean");
@@ -83,6 +84,13 @@ function obtenerVelocidad() {
     Math.max(valor, Number(velocidad.min)),
     Number(velocidad.max),
   );
+}
+
+function anunciarEstado(mensaje) {
+  estadoTablero.textContent = "";
+  window.setTimeout(() => {
+    estadoTablero.textContent = mensaje;
+  }, 50);
 }
 
 function actualizarControles() {
@@ -180,6 +188,9 @@ function crearTablero() {
   tablero.replaceChildren(fragmento);
   celdaEnfocada = tablero.querySelector(".celula");
   actualizarControles();
+  anunciarEstado(
+    `Tablero vacío de ${filas} filas por ${columnas} columnas.`,
+  );
 }
 
 function alternarCelula(celula) {
@@ -290,9 +301,13 @@ start.addEventListener("click", () => {
   if (!matriz || intervalo !== null) return;
 
   iniciarSimulacion();
+  anunciarEstado("Simulación en marcha.");
 });
 
-stop.addEventListener("click", detenerSimulacion);
+stop.addEventListener("click", () => {
+  detenerSimulacion();
+  anunciarEstado("Simulación detenida.");
+});
 
 velocidad.addEventListener("change", () => {
   const valor = obtenerVelocidad();
@@ -309,6 +324,7 @@ clean.addEventListener("click", () => {
   detenerSimulacion();
   matriz = generarTablero(matriz.length, matriz[0].length);
   renderizarTablero();
+  anunciarEstado("Tablero limpio.");
 });
 
 botonPatronAleatorio.addEventListener("click", () => {
@@ -318,6 +334,7 @@ botonPatronAleatorio.addEventListener("click", () => {
   matriz = generarPatronAleatorio(matriz, 0.3);
   renderizarTablero();
   enfocarCelda(tablero.querySelector(".celula"));
+  anunciarEstado("Patrón aleatorio aplicado con un 30 % de celdas vivas.");
 });
 
 crearTablero();
