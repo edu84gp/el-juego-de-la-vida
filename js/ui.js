@@ -85,15 +85,31 @@ function obtenerVelocidad() {
   );
 }
 
+function actualizarControles() {
+  const simulando = intervalo !== null;
+  const focoEnInicio = document.activeElement === start;
+  const focoEnParada = document.activeElement === stop;
+
+  start.disabled = simulando;
+  stop.disabled = !simulando;
+
+  if (simulando && focoEnInicio) stop.focus();
+  if (!simulando && focoEnParada) start.focus();
+}
+
 function detenerSimulacion() {
   if (intervalo !== null) {
     clearInterval(intervalo);
     intervalo = null;
   }
+
+  actualizarControles();
 }
 
-function iniciarIntervalo() {
+function iniciarSimulacion() {
+  detenerSimulacion();
   intervalo = setInterval(siguienteGeneracion, obtenerVelocidad());
+  actualizarControles();
 }
 
 function actualizarCelula(celula, viva) {
@@ -163,6 +179,7 @@ function crearTablero() {
 
   tablero.replaceChildren(fragmento);
   celdaEnfocada = tablero.querySelector(".celula");
+  actualizarControles();
 }
 
 function alternarCelula(celula) {
@@ -272,8 +289,7 @@ tablero.addEventListener("keydown", (event) => {
 start.addEventListener("click", () => {
   if (!matriz || intervalo !== null) return;
 
-  siguienteGeneracion();
-  iniciarIntervalo();
+  iniciarSimulacion();
 });
 
 stop.addEventListener("click", detenerSimulacion);
@@ -283,8 +299,7 @@ velocidad.addEventListener("change", () => {
   velocidad.value = valor;
 
   if (intervalo !== null) {
-    detenerSimulacion();
-    iniciarIntervalo();
+    iniciarSimulacion();
   }
 });
 
