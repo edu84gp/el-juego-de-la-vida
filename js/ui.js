@@ -61,6 +61,7 @@ const start = document.getElementById("start");
 const stop = document.getElementById("stop");
 const clean = document.getElementById("clean");
 const velocidad = document.getElementById("velocidad");
+const botonGenerarTablero = document.getElementById("btn-generar-tablero");
 const botonPatronAleatorio = document.getElementById("btn-patron-aleatorio");
 let matriz = null;
 let intervalo = null;
@@ -207,8 +208,9 @@ function siguienteGeneracion() {
 
 formulario.addEventListener("submit", (event) => {
   event.preventDefault();
-  crearTablero();
 });
+
+botonGenerarTablero.addEventListener("click", crearTablero);
 
 tablero.addEventListener("click", (event) => {
   const celula = event.target.closest(".celula");
