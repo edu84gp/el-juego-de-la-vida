@@ -9,9 +9,27 @@ export function generarTablero(filas, columnas) {
   return matriz;
 }
 
-export function generarPatronAleatorio(matriz, densidad = 0.3) {
-  return matriz.map((fila) =>
-    fila.map(() => (Math.random() < densidad ? 1 : 0)),
+export function generarPatronAleatorio(
+  matriz,
+  densidadMinima = 0.1,
+  densidadMaxima = 0.5,
+) {
+  const columnas = matriz[0]?.length ?? 0;
+  const total = matriz.length * columnas;
+  const minimo = Math.max(1, Math.ceil(total * densidadMinima));
+  const maximo = Math.max(minimo, Math.floor(total * densidadMaxima));
+  const vivas = minimo + Math.floor(Math.random() * (maximo - minimo + 1));
+  const celdas = Array.from({ length: total }, (_, indice) =>
+    indice < vivas ? 1 : 0,
+  );
+
+  for (let i = total - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [celdas[i], celdas[j]] = [celdas[j], celdas[i]];
+  }
+
+  return matriz.map((_, fila) =>
+    celdas.slice(fila * columnas, (fila + 1) * columnas),
   );
 }
 

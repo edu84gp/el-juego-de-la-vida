@@ -331,10 +331,15 @@ botonPatronAleatorio.addEventListener("click", () => {
   if (!matriz) return;
 
   detenerSimulacion();
-  matriz = generarPatronAleatorio(matriz, 0.3);
+  matriz = generarPatronAleatorio(matriz);
+  const total = matriz.length * matriz[0].length;
+  const vivas = matriz.flat().filter((celda) => celda === 1).length;
+  const porcentaje = Math.round((vivas / total) * 100);
   renderizarTablero();
   enfocarCelda(tablero.querySelector(".celula"));
-  anunciarEstado("Patrón aleatorio aplicado con un 30 % de celdas vivas.");
+  anunciarEstado(
+    `Patrón aleatorio aplicado con un ${porcentaje} % de celdas vivas.`,
+  );
 });
 
 crearTablero();

@@ -19,8 +19,8 @@ tablero. Las dimensiones se pueden cambiar entre 1×1 y 99×99.
 
 - Tablero inicial vacío de 30×30 (900 celdas), configurable entre 1×1 y
   99×99.
-- Patrón aleatorio con aproximadamente un 30 % de celdas vivas; sustituye el
-  patrón anterior y detiene la simulación.
+- Patrón aleatorio con un porcentaje de celdas vivas elegido al azar entre el
+  10 % y el 50 %; sustituye el patrón anterior y detiene la simulación.
 - Clic, Enter o Espacio para activar o desactivar células.
 - Navegación con las flechas y con las teclas Inicio y Fin para recorrer el
   tablero.
@@ -79,7 +79,7 @@ No abras `index.html` con doble clic: los módulos ES requieren HTTP.
 | Acción | Control |
 | --- | --- |
 | Crear o redimensionar | Filas y columnas + «Generar tablero» |
-| Patrón aleatorio | «Patrón aleatorio» (≈30 % de celdas vivas) |
+| Patrón aleatorio | «Patrón aleatorio» (entre 10 % y 50 % de celdas vivas) |
 | Alternar célula | Clic, Enter o Espacio; flechas, Inicio y Fin |
 | Iniciar o reanudar | «Comenzar Juego» |
 | Detener | «Parar Juego» |
@@ -99,7 +99,8 @@ publicada usa DOM, no `canvas`.
 **Actualización.** La siguiente generación se calcula sobre una copia de la
 matriz para que todas las células partan del estado anterior. Los bordes son
 finitos y no envolventes. El patrón aleatorio es una función pura que devuelve
-una matriz nueva con la densidad indicada.
+una matriz nueva con un número de celdas vivas elegido al azar entre el 10 % y
+el 50 % del total.
 
 **Renderizado.** Cada generación recorre todas las células y cambia sus
 clases; no hay virtual DOM ni actualización por diferencias.
